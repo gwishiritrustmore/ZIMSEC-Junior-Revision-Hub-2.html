@@ -49,19 +49,19 @@ jobs:
       - name: Verify Android project
         run: |
           echo "Android project:"
-          find app/src/main -maxdepth 5 -type f | sort
+          find app/src/main -maxdepth 10 -type f | sort
 
-      - name: Build release APK
-        run: gradle :app:assembleRelease --stacktrace
+      - name: Build debug APK
+        run: gradle :app:assembleDebug --stacktrace
 
       - name: Build release AAB
         run: gradle :app:bundleRelease --stacktrace
 
-      - name: Upload APK
+      - name: Upload signed debug APK
         uses: actions/upload-artifact@v4
         with:
           name: ZIMSEC-Junior-Revision-Hub-APK
-          path: app/build/outputs/apk/release/*.apk
+          path: app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
 
       - name: Upload AAB
